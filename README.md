@@ -2,7 +2,7 @@
 
 ## What is TrafficFlow?
 
-TrafficFlow is a device that provides vehicle control to supported vehicles.  Communciation with the TrafficFlow device uses a protocol that is designed to be highly abstract and vehicle agnostic. I like to call it the "Vehicle Control Interface Standard".
+TrafficFlow is a device that provides vehicle control to supported vehicles.  Communication with the TrafficFlow device uses a protocol that is designed to be highly abstract and vehicle agnostic. I like to call it the "Vehicle Control Interface Standard".
 
 ## Which vehicles support TrafficFlow?
 
