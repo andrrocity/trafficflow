@@ -1,0 +1,188 @@
+
+{
+    "vehicle": {
+        "description": "Vehicle build information, such as make, model, year.",
+        "type": "object",
+        "required": "false",
+        "content": {
+            "make": {
+                "description": "The vehicle brand name.",
+                "type": "string",
+                "required": false
+            },
+            "model": {
+                "description": "The vehicle model name.",
+                "type": "string",
+                "required": false
+            },
+            "year": {
+                "description": "The vehicle year.",
+                "type": "number",
+                "required": false
+            },
+            "vin": {
+                "description": "The VIN",
+                "type": "string",
+                "required": false
+            }
+        }
+    },
+    "state": {
+        "description": "The current vehicle state.",
+        "type": "object",
+        "required": true,
+        "content": {
+            "dynamics": {
+                "description": "The vehicle's dynamics data.",
+                "type": "object",
+                "required": true,
+                "content": {
+                    "speed": {
+                        "description": "The vehicle's current speed.",
+                        "type": "number",
+                        "required": true
+                    },
+                    "acceleration": {
+                        "description": "The vehicle's accelerometetr readsings.",
+                        "required": "false",
+                        "type": "object",
+                        "content": {
+                            "lateral": {
+                                "description": "Lateral acceleration of vehicle.",
+                                "required": "false",
+                                "type": "number"
+                            },
+                            "longitudinal": {
+                                "description": "Longitudinal acceleration of vehicle.",
+                                "required": "false",
+                                "type": "number"
+                            }
+                        }
+                    }
+
+                }
+            },
+            "powertrain": {
+                "description": "The vehicle's powertrain information.",
+                "required": false,
+                "type": "object",
+                "content": {
+                    "torque": {
+                        "description": "The engine's torque information.",
+                        "required": false,
+                        "type": "object",
+                        "content": {
+                            "minimum": {
+                                "description": "The minimum engine torque.",
+                                "required": false,
+                                "type": "number"
+                            },
+                            "maximum": {
+                                "description": "The maximum engine torque.",
+                                "required": false,
+                                "type": "number"
+                            },
+                            "effective": {
+                                "description": "The effective engine torque.",
+                                "required": false,
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "rpm": {
+                        "description": "The engine's revolutions per minute.",
+                        "required": false,
+                        "type": "number"
+                    },
+                    "starter-running": {
+                        "description": "Indicates if the starter is running.",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    "throttle-position": {
+                        "description": "The driver's pressed throttle position, as a percentage from 0-100.",
+                        "required": false,
+                        "type": "number"
+                    }
+                }
+            },
+            "transmission": {
+                "description": "Information about the transmission.",
+                "required": false,
+                "content": {
+                    "gear-selection": {
+                        "description": "The driver's gear selection.",
+                        "required": false,
+                        "type": "string",
+                        "content": [ "park", "reverse", "neutral", "drive", "unknown" ]
+                    }
+                }
+            },
+            "occupant-restraint": {
+                "description": "Information about the state of the occuptant restraint system.",
+                "required": "false",
+                "content": {
+                    "seatbelts": {
+                        "description": "Seatbelt status.",
+                        "required": false,
+                        "content": {
+                            "driver": {
+                                "description": "The seatbelt status.",
+                                "required": false,
+                                "content": ["unknown", "unbuckled", "buckled"]
+                            }
+                        }                       
+                    }
+                }
+            },
+            "doors": {
+                "description": "Information about the state of the doors.",
+                "required": "false",
+                "content": {
+                    "driver": {
+                        "description": "Door status",
+                        "required": false,
+                        "content": [ "ajar", "closed" ]             
+                    },
+                    "passenger": {
+                        "description": "Door status",
+                        "required": false,
+                        "content": [ "ajar", "closed" ]             
+                    },
+                    "left-rear": {
+                        "description": "Door status",
+                        "required": false,
+                        "content": [ "ajar", "closed" ]             
+                    },
+                    "right-rear": {
+                        "description": "Door status",
+                        "required": false,
+                        "content": [ "ajar", "closed" ]             
+                    },
+                    "trunk-liftgate": {
+                        "description": "Door status",
+                        "required": false,
+                        "content": [ "ajar", "closed" ]             
+                    }
+                }
+            },
+            "steering-column": {
+                "description": "Information about the state of the steering column.",
+                "required": false,
+                "content": {
+                    "steering-wheel-angle": {
+                        "description": "The steering wheel angle, in degrees.",
+                        "required": false,
+                        "type": "number"
+                    },
+                    "turn-signal": {
+                        "description": "The turn signal selection.",
+                        "required": false,
+                        "type": "string",
+                        "content": [ "off", "left", "right" ]
+                    }
+                }
+            }
+        }
+    }
+}
