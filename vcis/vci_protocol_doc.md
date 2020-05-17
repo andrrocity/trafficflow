@@ -51,6 +51,9 @@ The following verbs are supported:
 `PUT`
 : Attempts to change the value at the given request URI with the one specified in the request body.
 
+`DELETE`
+: Attempts to delete, stop, terminate, or otherwise end whatever is taking place at the given request URI.
+
 ------------------------
 
 ## Status Code Classes
