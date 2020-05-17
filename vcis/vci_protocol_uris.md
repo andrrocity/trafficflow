@@ -66,3 +66,62 @@ For example, requesting `/info/state/powertrain?supported` would result in:
 ```json
 ["torque/minimum", "torque/maximum", "torque/effective", "rpm", "starter-running", "throttle-position"]
 ```
+
+-------------
+
+## `GET /control`
+
+>**Refer to [to the control JSON schema](vci_control_schema.json) for the official structure for this data.**
+
+Peforming a `GET` to this request URI will return a JSON description of the supported lateral
+and longitudial control methods.
+
+For example, a vehicle that supports power represented as torque, but only supports braking value represented as an acceleration, the result may look like this:
+
+```json
+{
+    "longitudinal": {
+        "power": {
+            "magnitude": {},
+            "torque": {}
+        },
+        "braking": {
+            "magnitude": {},
+            "acceleration": {
+                "minimum": 0.0,
+                "maximum": 9.0
+            }
+        }
+    }
+}
+```
+
+-------------
+
+## `PUT /control`
+
+Sending a `PUT` request to the given URI will attempt to take control of the vehicle using the provided longidudinal/lateral values provided.
+
+> **Note: When requesting longitudinal control, `braking` or `power` must both not be present at the same time.**
+
+```json
+{
+    "longitudinal": {
+        "power": {
+            "magnitude": 50.0,
+        },
+        "braking": {
+            "acceleration": 2.0,
+        }
+    },
+    "lateral": {
+        "magnitude": -2.0
+    }
+}
+```
+
+-------------
+
+## `DELETE /control(/[longitudinal|lateral])`
+
+Sending a `DELETE` request to `/control` will relinquish all control and return the vehicle to its original state.  To relinquish longitudinal or lateral control separately, make the request to `/control/longitudinal` or `/control/lateral` individually.
