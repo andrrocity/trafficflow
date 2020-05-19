@@ -1,4 +1,4 @@
-# TrafficFlow
+![TF Logo](images/tf-logo.png)
 
 ## What is TrafficFlow?
 
