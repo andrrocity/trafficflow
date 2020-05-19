@@ -5,7 +5,7 @@
 TrafficFlow is a device that provides lateral and longitudinal control to FCA vehicles on the Powernet architecture.  The device is easy to install, no splicing is required.  TrafficFlow can apply engine torque, braking torque, and full range steering wheel control at any speed.
 
 Control requests are sent to the TrafficFlow device over the vehicle's own CAN bus, or over a serial connection over USB.  The DBC file which defines
-the message formats for communication over CAN can be found [right here]("trafficflow.dbc").
+the message formats for communication over CAN can be found [right here](trafficflow.dbc).
 
 This device is designed to be used with OpenPilot to remove all limitations that are currently present with FCA vehicles.  However, the device contains no dependency to OpenPilot and can be used for any purpose. 
 
