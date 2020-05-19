@@ -4,7 +4,9 @@
 
 >**Refer to [to the info JSON schema](vci_info_schema.json) for the official structure for this data.**
 
- The entire vehicle information tree is a JSON dictionary.  Each path component after `/info/` represents the key in the dictionary to drill in to.  For example, making a request to `/info` will yield every single bit of information available, for example:
+**Only the `GET` verb is supported.**
+
+Every piece of vehicle information that can be provided is conceptually modeled as a JSON dictionary.  Each path component in the request URI is used to address the data item of interest.  For example, making a request to `/info` will yield everything that is available, for example:
 
 ```json
 {
@@ -33,13 +35,13 @@
             "throttle-position": 0.5
         },
         "transmission": {
-            "gear-selection": "park/reverse/neutral/drive/unknown"
+            "gear-selection": "park""
         }
     }
 }
 ```
 
-Now, if a request to `/info/state/dynamics` was made, the result would be:
+To retreive only a piece of information, the request URI can be made more specific.  For example, a request for URI `/info/state/dynamics` would result in:
 
 ```json
 {
@@ -51,7 +53,7 @@ Now, if a request to `/info/state/dynamics` was made, the result would be:
 }
 ```
 
-This can be drilled even further to get a single value,  `/info/state/dynamics/speed` the result would be:
+The request URI can made further specific as to retrieve the scalar value.  For example, a request for URI `/info/state/dynamics/speed` would result in:
 
 ```json
 25
@@ -59,69 +61,153 @@ This can be drilled even further to get a single value,  `/info/state/dynamics/s
 
 ### The `?supported` Query Parameter
 
-When appended to a request URI, the result will be an array of strings containing each supported value.
+When appended to any URI inside `/info`, the result is an array of relative
+request URIs that the server supports providing a value for.
 
-For example, requesting `/info/state/powertrain?supported` would result in:
+For example, requesting `/info/state/powertrain?supported` may result in:
 
 ```json
-["torque/minimum", "torque/maximum", "torque/effective", "rpm", "starter-running", "throttle-position"]
+["torque", "rpm", "starter-running", "throttle-position"]
 ```
+
+> *Note*: A request for a non-existant or unsupported data item will result in a `404 Not Found` error response.
 
 -------------
 
-## `GET /control`
+## `/control`
 
 >**Refer to [to the control JSON schema](vci_control_schema.json) for the official structure for this data.**
 
-Peforming a `GET` to this request URI will return a JSON description of the supported lateral
-and longitudial control methods.
+All controllable aspects (herein each referred to as an "actuator") of the vehicle are conceptually modeled as a JSON dictionary, using each of the request URI's path components to address the actuator to be controlled.
 
-For example, a vehicle that supports power represented as torque, but only supports braking value represented as an acceleration, the result may look like this:
+### **Querying Actuator Control State**
+
+The requst verb `GET` may be used to retrieve the current state of the actuator.  Like performing a `GET /info` as described above, a `GET /control` would result in something like:
 
 ```json
 {
-    "longitudinal": {
-        "power": {
+    "motion": {
+        "longitudinal": {
+            "power": {},
+            "brake": {
+                "acceleration": 0.10812
+            }
+        },
+        "lateral": {
+            "magnitude": -52.8512
+        }
+    },
+    "driver-actuation": {
+        "turn-signal": {},
+        "horn": {}
+    },
+    "lighting": {
+        "head": {
+            "left": "on",
+            "right": "on"
+        },
+        "fog": {
+            "left": {},
+            "right": {}
+        },
+        "reverse": {
+            "left": {},
+            "right": {}
+        },
+        "parking": {
+            "left": {},
+            "right": {}
+        },
+        "tail": {
+            "left": {},
+            "right": {}
+        },
+        "brake": {
+            "left": {},
+            "right": {}
+        },
+        "daytime": {
+            "left": {},
+            "right": {}
+        },
+        "signal": {
+            "left": {},
+            "right": {}
+        },
+        "chmsl": {},
+        "license-plate": {}
+    }
+}
+```
+
+### **Determining an Actuator's Supported Control Values**
+
+The control values supported by the actuator referenced at the given request URI can be retrieved by appending the `?definition` query parameter.
+
+For example, a vehicle that supports longitudinal control with power represented as torque and braking represented as an acceleration, and lateral control represented as a magnitude or torque, a request to `/control/motion?definition` will result in:
+
+```json
+{
+    "motion": {
+        "lateral": {
             "magnitude": {},
             "torque": {}
         },
-        "braking": {
-            "magnitude": {},
-            "acceleration": {
-                "minimum": 0.0,
-                "maximum": 9.0
+        "longitudinal": {
+            "power": {
+                "magnitude": {},
+                "torque": {}
+            },
+            "brake": {
+                "magnitude": {},
+                "acceleration": {
+                    "minimum": 0.0,
+                    "maximum": 9.0
+                }
             }
         }
     }
 }
 ```
 
--------------
-
-## `PUT /control`
-
-Sending a `PUT` request to the given URI will attempt to take control of the vehicle using the provided longidudinal/lateral values provided.
-
-> **Note: When requesting longitudinal control, `braking` or `power` must both not be present at the same time.**
+A request to `/control/lighting/head?definition` will result in:
 
 ```json
 {
+    "left": [ "on", "off" ],
+    "right": [ "on", "off" ]
+}
+```
+
+### **Assigning an Actuator's Control Value**
+
+The `PUT` request verb is used to assign a control value to the actuator at the given URI.  For example, to apply a counterclockwise force at half magnitude to the steering wheel, the request would look like:
+
+`PUT /control/motion/lateral`
+
+```json
+{
+    "magnitude": -50.0
+}
+```
+
+Or to set lateral and longitudinal in the same request:
+
+`PUT /control/motion`
+
+```json
+{
+    "lateral": {
+        "magnitude": -50.0
+    },
     "longitudinal": {
         "power": {
-            "magnitude": 50.0,
-        },
-        "braking": {
-            "acceleration": 2.0,
+            "torque": 202.251
         }
-    },
-    "lateral": {
-        "magnitude": -2.0
     }
 }
 ```
 
--------------
+### **Releasing Control of an Actuator**
 
-## `DELETE /control(/[longitudinal|lateral])`
-
-Sending a `DELETE` request to `/control` will relinquish all control and return the vehicle to its original state.  To relinquish longitudinal or lateral control separately, make the request to `/control/longitudinal` or `/control/lateral` individually.
+Use the `DELETE` verb to release control of the actuator at the given URI.

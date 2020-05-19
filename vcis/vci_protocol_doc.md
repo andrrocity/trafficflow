@@ -96,3 +96,5 @@ All measurements must be represented in metric system as follows:
 | Speeed        | Meters per second (or `m/s`)                  |
 | Acceleration  | Meters per second per second (or `m/s^2`)     |
 | Torque        | Newton-meters (or `Nm`)                       |
+| Weight        | Kilograms (or `kg`)                           |
+

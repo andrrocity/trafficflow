@@ -24,6 +24,24 @@
                 "description": "The VIN",
                 "type": "string",
                 "required": false
+            },
+            "wheel-base": {
+                "description": "The distance between the center of the front and rear axles.",
+                "type": "number",
+                "unit": "length",
+                "required": false
+            },
+            "curb-weight": {
+                "description": "The weight of the vehicle.",
+                "type": "number",
+                "unit": "weight",
+                "required": false
+            },
+            "tire-circumference": {
+                "description": "The circumference of the tires.",
+                "type": "number",
+                "unit": "length",
+                "required": false
             }
         }
     },
@@ -40,7 +58,8 @@
                     "speed": {
                         "description": "The vehicle's current speed.",
                         "type": "number",
-                        "required": true
+                        "required": true,
+                        "unit": "speed"
                     },
                     "acceleration": {
                         "description": "The vehicle's accelerometetr readsings.",
@@ -49,13 +68,15 @@
                         "content": {
                             "lateral": {
                                 "description": "Lateral acceleration of vehicle.",
-                                "required": "false",
-                                "type": "number"
+                                "required": true,
+                                "type": "number",
+                                "unit": "acceleration"
                             },
                             "longitudinal": {
                                 "description": "Longitudinal acceleration of vehicle.",
-                                "required": "false",
-                                "type": "number"
+                                "required": true,
+                                "type": "number",
+                                "unit": "acceleration"
                             }
                         }
                     }
@@ -74,18 +95,21 @@
                         "content": {
                             "minimum": {
                                 "description": "The minimum engine torque.",
-                                "required": false,
-                                "type": "number"
+                                "required": true,
+                                "type": "number",
+                                "unit": "torque"
                             },
                             "maximum": {
                                 "description": "The maximum engine torque.",
-                                "required": false,
-                                "type": "number"
+                                "required": true,
+                                "type": "number",
+                                "unit": "torque"
                             },
                             "effective": {
                                 "description": "The effective engine torque.",
-                                "required": false,
-                                "type": "number"
+                                "required": true,
+                                "type": "number",
+                                "unit": "torque"
                             }
                         }
                     },
@@ -102,7 +126,8 @@
                     "throttle-position": {
                         "description": "The driver's pressed throttle position, as a percentage from 0-100.",
                         "required": false,
-                        "type": "number"
+                        "type": "number",
+                        "unit": "percentage"
                     }
                 }
             },
@@ -113,7 +138,6 @@
                     "gear-selection": {
                         "description": "The driver's gear selection.",
                         "required": false,
-                        "type": "string",
                         "content": [ "park", "reverse", "neutral", "drive", "unknown" ]
                     }
                 }
@@ -128,6 +152,11 @@
                         "content": {
                             "driver": {
                                 "description": "The seatbelt status.",
+                                "required": true,
+                                "content": ["unknown", "unbuckled", "buckled"]
+                            },
+                            "passenger": {
+                                "description": "The seatbelt status.",
                                 "required": false,
                                 "content": ["unknown", "unbuckled", "buckled"]
                             }
@@ -141,7 +170,7 @@
                 "content": {
                     "driver": {
                         "description": "Door status",
-                        "required": false,
+                        "required": true,
                         "content": [ "ajar", "closed" ]             
                     },
                     "passenger": {
@@ -166,20 +195,58 @@
                     }
                 }
             },
-            "steering-column": {
-                "description": "Information about the state of the steering column.",
+            "steering": {
+                "description": "Information about the vehicle's steering system.",
                 "required": false,
                 "content": {
-                    "steering-wheel-angle": {
-                        "description": "The steering wheel angle, in degrees.",
-                        "required": false,
-                        "type": "number"
+                    "wheel-angle": {
+                        "description": "The steering wheel angle, negative indicates counterclockwise.",
+                        "required": true,
+                        "type": "number",
+                        "unit": "degrees"
                     },
+                    "input-torque": {
+                        "description": "The amount of torque the driver is applying to the steering wheel.",
+                        "required": false,
+                        "type": "number",
+                        "unit": "torque"
+                    },
+                    "assist-torque": {
+                        "description": "The amount of torque the power steering system is applying to assist the driver.",
+                        "required": false,
+                        "type": "number",
+                        "unit": "torque"
+                    }
+                }
+            },
+            "driver-acutation": {
+                "description": "Information about the driver's actuations.",
+                "required": false,
+                "content": {
                     "turn-signal": {
                         "description": "The turn signal selection.",
                         "required": false,
-                        "type": "string",
-                        "content": [ "off", "left", "right" ]
+                        "content": [ "off", "left", "right", "hazard" ]
+                    },
+                    "horn": {
+                        "description": "The horn.",
+                        "required": false,
+                        "content": [ "off", "on" ]
+                    },
+                    "headlights": {
+                        "description": "The headlight selection.",
+                        "required": false,
+                        "content": [ "auto", "on", "off", "parking" ]
+                    },
+                    "foglights": {
+                        "description": "The foglight selection.",
+                        "required": false,
+                        "content": [ "on", "off" ]
+                    },
+                    "highbeams": {
+                        "description": "The highbeams selection.",
+                        "required": false,
+                        "content": [ "off", "active", "momentary" ]
                     }
                 }
             }
