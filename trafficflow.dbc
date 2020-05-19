@@ -1,0 +1,81 @@
+VERSION ""
+
+
+NS_ :
+    NS_DESC_
+    CM_
+    BA_DEF_
+    BA_
+    VAL_
+    CAT_DEF_
+    CAT_
+    FILTER
+    BA_DEF_DEF_
+    EV_DATA_
+    ENVVAR_DATA_
+    SGTYPE_
+    SGTYPE_VAL_
+    BA_DEF_SGTYPE_
+    BA_SGTYPE_
+    SIG_TYPE_REF_
+    VAL_TABLE_
+    SIG_GROUP_
+    SIG_VALTYPE_
+    SIGTYPE_VALTYPE_
+    BO_TX_BU_
+    BA_DEF_REL_
+    BA_REL_
+    BA_DEF_DEF_REL_
+    BU_SG_REL_
+    BU_EV_REL_
+    BU_BO_REL_
+    SG_MUL_VAL_
+
+BS_:
+
+BU_: TRAFFICFLOW CONTROL_CLIENT
+
+BO_ 2221 TF_CONTROL_ANNOUNCEMENT: 8 TRAFFICFLOW
+ SG_ LAT_CTRL_STATUS : 0|4@0+ (1,0) [0|0] "" CONTROL_CLIENT
+ SG_ LONG_CTRL_STATUS : 4|4@0+ (1,0) [0|0] "" CONTROL_CLIENT
+ SG_ LAT_CTRL_SUPPORTED_UNITS : 8|2@0+ (1,0) [0|0] "" CONTROL_CLIENT
+ SG_ LONG_POWER_CTRL_SUPPORTED_UNITS : 10|3@0+ (1,0) [0|0] "" CONTROL_CLIENT
+ SG_ LONG_BRAKE_CTRL_SUPPORTED_UNITS : 13|3@0+ (1,0) [0|0] "" CONTROL_CLIENT
+ SG_ LONG_POWER_CTRL_ACCELERATION_MAX : 16|10@0+ (0.9775171065,0) [0.0|1000.0] "m/s^2" CONTROL_CLIENT
+ SG_ LONG_POWER_CTRL_TORQUE_MAX : 26|10@0+ (0.9775171065,0) [0.0|1000.0] "Nm" CONTROL_CLIENT
+ SG_ LONG_BRAKE_CTRL_ACCELERATION_MAX : 36|10@0+ (0.9775171065,0) [0.0|1000.0] "m/s^2" CONTROL_CLIENT
+ SG_ LONG_BRAKE_CTRL_TORQUE_MAX : 46|10@0+ (0.5865102639,0) [0.0|1000.0] "Nm" CONTROL_CLIENT
+ SG_ CTRL_ID : 58|8@0+ (1,0) [0|255] "" CONTROL_CLIENT
+
+BO_ 2222 TF_CONTROL_REQUEST: 8 CONTROL_CLIENT
+ SG_ LAT_CTRL_METHOD : 0|4@0+ (1,0) [0|0] "" TRAFFICFLOW
+ SG_ LONG_CTRL_METHOD : 4|4@0+ (1,0) [0|0] "" TRAFFICFLOW
+ SG_ LAT_CTRL_VALUE : 8|16@0+ (0.0152590219,0) [0|1000.0] "mag/Nm/degs" TRAFFICFLOW
+ SG_ LONG_CTRL_VALUE : 24|16@0+ (0.0152590219,0) [0.0|1000.0] "mag/Nm/m/s^2" TRAFFICFLOW
+ SG_ CTRL_REQ_ID : 56|8@0+ (1,0) [0|255] "" TRAFFICFLOW
+
+CM_ SG_ 2221 CTRL_ID                         "Identifies a client's control request message to ensure it is in response to the control annoucement.";
+CM_ SG_ 2221 LAT_CTRL_STATUS                 "The status of the vehicle lateral control.";
+CM_ SG_ 2221 LONG_CTRL_STATUS                "The status of the vehicle longitudinal control.";
+CM_ SG_ 2221 LAT_CTRL_SUPPORTED_UNITS        "A bitmask indicating the units of measurement supported for lateral control.";
+CM_ SG_ 2221 LONG_POWER_CTRL_SUPPORTED_UNITS "A bitmask indicating the units of measurement supported for longitudinal control for power (engine).";
+CM_ SG_ 2221 LONG_BRAKE_CTRL_SUPPORTED_UNITS "A bitmask indicating the units of measurement supported for longitudinal control for braking.";
+CM_ SG_ 2221 LONG_POWER_CTRL_ACCELERATION_MAX "The maximum acceleration that can be requested for longitudianl power control.";
+CM_ SG_ 2221 LONG_POWER_CTRL_TORQUE_MAX      "The maximum amount of toruqe that can be requsted for longitudianl power control.";
+CM_ SG_ 2221 LONG_BRAKE_CTRL_ACCELERATION_MAX "The maximum amount of acceleration that can be requested for longitudianl braking control.";
+CM_ SG_ 2221 LONG_BRAKE_CTRL_TORQUE_MAX "The maximum amount of torque that can be requsted for longitudianl braking control.";
+
+CM_ SG_ 2222 CTRL_REQ_ID "The ID from the control announcement message.";
+CM_ SG_ 2222 LAT_CTRL_METHOD "The desired method of lateral control. The unit of measurement used must be supported as indicated in the announcement (magnitude is always supported).";
+CM_ SG_ 2222 LONG_CTRL_METHOD "The desired method of longitudinal control. The unit of measurement used must be supported as indicated in the announcement (magnitude is always supported).";
+
+VAL_ 2221 LAT_CTRL_STATUS                0 "UNKNOWN" 1 "READY"   2 "ACTIVE"  3 "UNAVAILABLE" 4 "DENIED"  5 "DRIVER_HANDS_ON" 7 "FAULTED";
+VAL_ 2221 LONG_CTRL_STATUS                   0 "UNKNOWN" 1 "READY"   2 "ACTIVE"  3 "UNAVAILABLE" 4 "DENIED"  5 "DRIVER_OVERRIDE" 7 "FAULTED";
+VAL_ 2221 LAT_CTRL_SUPPORTED_UNITS           0 "MAGNITUDE_ONLY" 1 "TORQUE"       2 "DEGREES";
+VAL_ 2221 LONG_POWER_CTRL_SUPPORTED_UNITS    0 "MAGNITUDE_ONLY" 1 "ACCELERATION" 2 "TORQUE";
+VAL_ 2221 LONG_BRAKE_CTRL_SUPPORTED_UNITS    0 "MAGNITUDE_ONLY" 1 "ACCELERATION" 2 "TORQUE";
+
+VAL_ 2222 LAT_CTRL_METHOD   0 "NONE" 1 "CW_MAGNITUDE" 2 "CCW_MAGNITUDE" 3 "CW_TORQUE" 4 "CCW_TORQUE"  5 "CW_DEGREES" 6 "CCW_DEGREES";
+VAL_ 2222 LONG_CTRL_METHOD  0 "NONE" 1 "POWER_MAGNITUDE"  2 "POWER_ACCELERATION"  3 "POWER_TORQUE"  4 "BRAKE_MAGNITUDE"  5 "BRAKE_ACCELERATION"  6 "BRAKE_TORQUE";
+
+
