@@ -13,8 +13,8 @@ If you have a Mac, you can use the TrafficFlow Configurator app to automatically
 4. Run the following commands:
 
 ```bash
-stty $DEVICE_PATH speed 1200
-bossac --port=$DEVICE_PATH --write --verify --reset" $FIRMWARE_FILE --boot 
+stty -f $DEVICE_PATH speed 1200
+bossac --port=$DEVICE_PATH --write --verify --reset $FIRMWARE_FILE --boot 
 ```
 
 Variables `$DEVICE_PATH` and `$FIRMWARE_FILE` defined or replaced as necessary. When complete, the amber status LED should be pulsing.  If its not, replug the device.  If you still don't get an pulsing LED, something went wrong - try flashing again.
