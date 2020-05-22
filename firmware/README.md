@@ -2,12 +2,12 @@
 
 This folder contains device firmware releases should you need to manually flash your device or flash older versions.
 
-## Manual Flashing from Unix
+## Manual Flashing on Unix
 
 If you have a Mac, you can use the TrafficFlow Configurator app to automatically update your device. If you need to flash manually, follow these steps:
 
 1. Download the firmware .bin file you want to flash.
-2. Install the `bossac` program if you don't already have it using your package manager.  If you use `apt` you can install it by running `apt-get install bossa-cli`.
+2. Install the `bossac` program if you don't already have it using your package manager.  If you use `apt` you can install it by running `apt-get install bossa-cli`.  On Mac you can use Homebrew to install, `brew cask install bossa`.
 3. Plug the device into the primary USB port.  If you have problems flashing over the primary USB port, you may have better luck trying these same steps while plugged into the debug USB port.
 4. Find the device's path in your `/dev` folder, it should start with `cu.usbmodem*`. 
 4. Run the following commands:
