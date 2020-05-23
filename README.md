@@ -30,3 +30,9 @@ Support is planned for the CUSW archiecture which would expand support the Jeep 
 - TrafficFlow is able to provide information and control many other things to make many new features possible.  For example, TF can report blind spot monitoring information and control the turn signals to allow for a fully automated lane change feature.  
 - Updating the device's firmware is easy with the TrafficFlow Configurator for Mac (Windows version is being worked on), as I'll be continuously working on adding features and fixing bugs.  For fun and testing, you can drive your car with a game controller through the Configurator app.
 - Includes some extra, neat little features, such as Stealth Mode and Light Show. More information to come on that later...
+
+## What does it look like?
+
+This is the current prototype unit.
+
+![TF Device Photo](images/tf-device-photo-small.jpg)
