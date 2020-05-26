@@ -1,5 +1,7 @@
 ![TF Logo](images/tf-logo.png)
 
+> If you'd like to order a prototype device, visit the [device order page](http://trafficflow.buy.codemotiv.com).  Please allow 3-4 weeks for shipping.  Join the OP Community Discord server for announcements and discussions regarding the TrafficFlow device [here](http://discord.opcommunity.net).
+
 ## What is TrafficFlow?
 
 TrafficFlow is a device that provides lateral and longitudinal control to FCA vehicles on the Powernet architecture.  The device is easy to install, no splicing is required.  TrafficFlow can apply engine torque, braking torque, and full range steering wheel control at any speed.
