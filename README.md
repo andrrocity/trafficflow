@@ -1,6 +1,6 @@
 ![TF Logo](images/tf-logo.png)
 
-> If you'd like to order a prototype device, visit the [device order page](http://buy.trafficflow.codemotive.io/).  Please allow 3-4 weeks for shipping.  Join the OP Community Discord server for announcements and discussions regarding the TrafficFlow device [here](http://discord.opcommunity.net).
+> If you'd like to order a prototype device, visit the [device order page](http://buy.trafficflow.codemotive.io/).  Please allow 3-4 weeks for shipping.  Join the OP Community Discord server for announcements and discussions regarding the TrafficFlow device [here](http://opdiscord.debugged.me).
 
 ## What is TrafficFlow?
 
